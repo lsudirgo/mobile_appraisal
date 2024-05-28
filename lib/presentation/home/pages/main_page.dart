@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_appraisal/presentation/dashboard/pages/dashboard_page.dart';
+import 'package:mobile_appraisal/presentation/profile/pages/profile_page.dart';
 
 import '../../../core/core.dart';
 
@@ -18,7 +19,7 @@ class _MainPageState extends State<MainPage> {
     const DashboardPage(),
     const Center(child: Text('Index 1: Business')),
     const Center(child: Text('Index 2: School')),
-    const Center(child: Text('Index 3: Profile')),
+    const ProfilePage(),
   ];
 
   updateIndex(int newIndex) {

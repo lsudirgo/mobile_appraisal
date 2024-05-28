@@ -48,6 +48,9 @@ class AppColors {
 
   /// background = #F4FBF9
   static const Color background = Color(0xffF4FBF9);
+
+  /// hover = #D8F4ED
+  static const Color hover = Color(0xFFD8F4ED);
 }
 
 class AppSizeFont {

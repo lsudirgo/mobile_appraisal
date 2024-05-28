@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_appraisal/presentation/dashboard/pages/notification_page.dart';
 import 'package:skeletons/skeletons.dart';
 
 import '../../../core/core.dart';
@@ -25,6 +28,14 @@ class _DashboardPageState extends State<DashboardPage> {
       });
     });
   }
+
+  final itemStatus = [
+    {'status': 'Disposisi', 'icon': Assets.icons.attendance, 'value': 10},
+    {'status': 'On Progress', 'icon': Assets.icons.image, 'value': 5},
+    {'status': 'Reviewer', 'icon': Assets.icons.email, 'value': 3},
+    {'status': 'Approval', 'icon': Assets.icons.attendance, 'value': 244},
+    {'status': 'Back', 'icon': Assets.icons.reverse, 'value': 1},
+  ];
 
   @override
   void initState() {
@@ -120,7 +131,8 @@ class _DashboardPageState extends State<DashboardPage> {
                               ),
                             ),
                             InkWell(
-                              onTap: () => {},
+                              onTap: () =>
+                                  {context.push(const NotificationPage())},
                               child: const Badge(
                                 backgroundColor: AppColors.secondary,
                                 alignment: AlignmentDirectional.topEnd,
@@ -169,15 +181,13 @@ class _DashboardPageState extends State<DashboardPage> {
                                     Icon(
                                       Icons.home_work_rounded,
                                       size: AppSizeFont.xxl,
-                                      color: Colors.white,
+                                      color: AppColors.light,
                                     ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
+                                    SpaceWidth(5),
                                     Text(
                                       "AFO Padang Sidempuan",
                                       style: TextStyle(
-                                        fontSize: AppSizeFont.md,
+                                        fontSize: AppSizeFont.lg,
                                         color: AppColors.white,
                                       ),
                                     ),
@@ -191,7 +201,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Container(
-                              height: MediaQuery.of(context).size.height / 4,
+                              height: MediaQuery.of(context).size.height / 4.5,
                               width: MediaQuery.of(context).size.width * 0.9,
                               decoration: BoxDecoration(
                                 color: AppColors.primary,
@@ -222,14 +232,14 @@ class _DashboardPageState extends State<DashboardPage> {
                                         Text(
                                           "Pending Order",
                                           style: TextStyle(
-                                            fontSize: AppSizeFont.md,
+                                            fontSize: AppSizeFont.lg,
                                             color: Colors.white,
                                           ),
                                         ),
                                         Icon(
                                           Icons.pending_actions,
                                           size: 22.0,
-                                          color: Colors.white,
+                                          color: AppColors.light,
                                         ),
                                       ],
                                     ),
@@ -260,241 +270,213 @@ class _DashboardPageState extends State<DashboardPage> {
                                       ],
                                     ),
                                   ),
-                                  const SpaceHeight(10),
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 15),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Center(
-                                          child: Row(
-                                            children: [
-                                              CircleAvatar(
-                                                radius: 13,
-                                                backgroundColor:
-                                                    AppColors.primary,
-                                                child: Icon(
-                                                  Icons.arrow_circle_right,
-                                                  color: Colors.white,
-                                                  size: 19,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Text(
-                                          "Disposisi",
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        Row(
+                                  // tambahkan custom carousel disini
+                                  const SpaceHeight(5),
+                                  Expanded(
+                                    child: SizedBox.expand(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            CircleAvatar(
-                                              radius: 13,
-                                              backgroundColor:
-                                                  AppColors.primary,
-                                              child: Icon(
-                                                Icons.arrow_circle_right,
-                                                color: Colors.white,
-                                                size: 19,
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                  .size
+                                                  .height,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  1.3,
+                                              child: PageView.builder(
+                                                scrollDirection: Axis.vertical,
+                                                itemCount: itemStatus.length,
+                                                itemBuilder: (items, index) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            1.0),
+                                                    child: Animate(
+                                                      effects: const [
+                                                        FadeEffect(),
+                                                        ScaleEffect(),
+                                                      ],
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Container(
+                                                            height:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height,
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                1.4,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                                    gradient: LinearGradient(
+                                                                        colors: [
+                                                                          AppColors
+                                                                              .background,
+                                                                          AppColors
+                                                                              .blueLight
+                                                                        ],
+                                                                        transform:
+                                                                            GradientRotation(
+                                                                                50)),
+                                                                    border: BorderDirectional(
+                                                                        top: BorderSide(
+                                                                            color: AppColors
+                                                                                .white,
+                                                                            width:
+                                                                                1),
+                                                                        bottom: BorderSide(
+                                                                            color: AppColors
+                                                                                .white,
+                                                                            width:
+                                                                                1)),
+                                                                    color: AppColors
+                                                                        .secondary,
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              30),
+                                                                      bottomLeft:
+                                                                          Radius.circular(
+                                                                              30),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              5),
+                                                                      bottomRight:
+                                                                          Radius.circular(
+                                                                              5),
+                                                                    ),
+                                                                    shape: BoxShape
+                                                                        .rectangle),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  '${itemStatus[index]['value']}',
+                                                                  style: const TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          AppSizeFont
+                                                                              .xxl,
+                                                                      color: AppColors
+                                                                          .secondary),
+                                                                ),
+                                                                Container(
+                                                                  margin:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                          left:
+                                                                              70),
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width /
+                                                                      3,
+                                                                  child:
+                                                                      Expanded(
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceAround,
+                                                                      children: [
+                                                                        Text(
+                                                                          itemStatus[index]['status']
+                                                                              as String,
+                                                                          style: const TextStyle(
+                                                                              fontSize: AppSizeFont.lg,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: AppColors.grey),
+                                                                        ),
+                                                                        SvgPicture
+                                                                            .asset(
+                                                                          itemStatus[index]['icon']
+                                                                              as String,
+                                                                          fit: BoxFit
+                                                                              .fitHeight,
+                                                                          height:
+                                                                              50,
+                                                                          width:
+                                                                              50,
+                                                                          colorFilter:
+                                                                              const ColorFilter.mode(
+                                                                            AppColors.grey,
+                                                                            BlendMode.srcIn,
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Column(
+                                                            children:
+                                                                List.generate(
+                                                              5,
+                                                              (indexDots) {
+                                                                return Container(
+                                                                  margin:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                          bottom:
+                                                                              2),
+                                                                  width: 8,
+                                                                  height: index ==
+                                                                          indexDots
+                                                                      ? 30
+                                                                      : 8,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8),
+                                                                      color: index ==
+                                                                              indexDots
+                                                                          ? AppColors
+                                                                              .light
+                                                                          : AppColors
+                                                                              .hover,
+                                                                      border: Border.all(
+                                                                          color:
+                                                                              AppColors.primary)),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
                                               ),
                                             ),
                                           ],
                                         ),
-                                        Text(
-                                          "OTS",
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                              radius: 13,
-                                              backgroundColor:
-                                                  AppColors.primary,
-                                              child: Icon(
-                                                Icons.arrow_circle_right,
-                                                color: Colors.white,
-                                                size: 19,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Text(
-                                          "On Desk",
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 50),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        isLoading
-                                            ? const SkeletonLine(
-                                                style: SkeletonLineStyle(
-                                                  height: 20,
-                                                  width: 20,
-                                                ),
-                                              )
-                                            : const Text(
-                                                "10",
-                                                style: TextStyle(
-                                                  fontSize: 16.0,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                        isLoading
-                                            ? const SkeletonLine(
-                                                style: SkeletonLineStyle(
-                                                  height: 20,
-                                                  width: 20,
-                                                ),
-                                              )
-                                            : const Text(
-                                                "4",
-                                                style: TextStyle(
-                                                  fontSize: 16.0,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                        isLoading
-                                            ? const SkeletonLine(
-                                                style: SkeletonLineStyle(
-                                                  height: 20,
-                                                  width: 20,
-                                                ),
-                                              )
-                                            : const Text(
-                                                "2",
-                                                style: TextStyle(
-                                                  fontSize: 16.0,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                      ],
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 15),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Center(
-                                          child: Row(
-                                            children: [
-                                              CircleAvatar(
-                                                radius: 13,
-                                                backgroundColor:
-                                                    AppColors.primary,
-                                                child: Icon(
-                                                  Icons.arrow_circle_right,
-                                                  color: Colors.white,
-                                                  size: 19,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Text(
-                                          "Reviewer",
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                              radius: 13,
-                                              backgroundColor:
-                                                  AppColors.primary,
-                                              child: Icon(
-                                                Icons.arrow_circle_right,
-                                                color: Colors.white,
-                                                size: 19,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Text(
-                                          "Approval",
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 50),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        isLoading
-                                            ? const SkeletonLine(
-                                                style: SkeletonLineStyle(
-                                                  height: 20,
-                                                  width: 20,
-                                                ),
-                                              )
-                                            : const Text(
-                                                "5",
-                                                style: TextStyle(
-                                                  fontSize: 16.0,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                        const SizedBox(
-                                          width: 70,
-                                        ),
-                                        isLoading
-                                            ? const SkeletonLine(
-                                                style: SkeletonLineStyle(
-                                                  height: 20,
-                                                  width: 20,
-                                                ),
-                                              )
-                                            : const Text(
-                                                "1",
-                                                style: TextStyle(
-                                                  fontSize: 16.0,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                      ],
-                                    ),
-                                  ),
+                                  )
                                 ],
                               ),
                             ),
                           ),
+                          // tambahkan custom carousel disini
                         ],
                       ),
                       Center(

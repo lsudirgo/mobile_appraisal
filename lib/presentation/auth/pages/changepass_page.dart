@@ -73,7 +73,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             onTap: () => Navigator.pop(context),
                             child: const Icon(
                               Icons.arrow_circle_left,
-                              size: 45,
+                              size: 40,
                               color: AppColors.light,
                               opticalSize: 200,
                             ),
@@ -86,7 +86,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           "Ganti Password",
                           style: TextStyle(
                             color: AppColors.light,
-                            fontSize: AppSizeFont.xxl,
+                            fontSize: AppSizeFont.lg,
                           ),
                         ),
                       ),
