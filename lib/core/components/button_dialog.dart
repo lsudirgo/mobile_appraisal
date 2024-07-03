@@ -6,25 +6,29 @@ Future<void> showBottomDialog({
   required BuildContext context,
   required Widget child,
   double heightFactor = 0.6,
+  double paddingTop = 10,
+  bool enableDrag = true,
+  bool isDismissible = true,
 }) async {
   await showModalBottomSheet<void>(
     context: context,
     clipBehavior: Clip.antiAliasWithSaveLayer,
     elevation: 1,
-    enableDrag: true,
+    enableDrag: enableDrag,
     isScrollControlled: true,
+    isDismissible: isDismissible,
     backgroundColor: AppColors.primary,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(20),
-        topRight: Radius.circular(20),
+        topLeft: Radius.circular(30),
+        topRight: Radius.circular(30),
       ),
     ),
     builder: (BuildContext context) {
       return FractionallySizedBox(
         heightFactor: heightFactor,
         child: Padding(
-          padding: const EdgeInsets.only(top: 15),
+          padding: EdgeInsets.only(top: paddingTop),
           child: Container(
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -44,9 +48,12 @@ Future<void> showBottomDialog({
                     color: Colors.grey[300], // Warna garis
                   ),
                 ),
-                const SpaceHeight(30),
+                const SpaceHeight(10),
                 Expanded(
-                  child: child,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: child, // Widget konten utama
+                  ),
                 ),
               ],
             ),

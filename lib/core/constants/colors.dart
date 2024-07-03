@@ -10,6 +10,9 @@ class AppColors {
   /// grey = #A4A4A4
   static const Color grey = Color(0xffA4A4A4);
 
+  /// greydark = #A4A4A4
+  static const Color greydark = Color.fromARGB(255, 102, 100, 100);
+
   /// light = #D0D0D0
   static const Color light = Color(0xffD0D0D0);
 
@@ -47,7 +50,7 @@ class AppColors {
   static const Color stroke = Color(0xffDBDBDB);
 
   /// background = #F4FBF9
-  static const Color background = Color(0xffF4FBF9);
+  static const Color background = Color.fromARGB(255, 248, 250, 249);
 
   /// hover = #D8F4ED
   static const Color hover = Color(0xFFD8F4ED);

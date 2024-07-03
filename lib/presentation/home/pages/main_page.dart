@@ -23,8 +23,9 @@ class _MainPageState extends State<MainPage> {
   ];
 
   updateIndex(int newIndex) {
-    _selectedIndex = newIndex;
-    setState(() {});
+    setState(() {
+      _selectedIndex = newIndex;
+    });
   }
 
   @override
@@ -40,7 +41,6 @@ class _MainPageState extends State<MainPage> {
         color: AppColors.primary,
         animationCurve: Curves.linear,
         height: 50,
-        index: _selectedIndex,
         items: const [
           Icon(
             Icons.home,

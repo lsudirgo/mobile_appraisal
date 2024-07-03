@@ -1,12 +1,16 @@
 class AppConfig {
-  static String baseUrlapi = "http://192.168.0.145:5000";
-  static String baseUrl = "https://capekngoding.com";
-  static String token = "";
+  static String baseUrlapi = "http://192.168.1.30:8000/Mobile";
 
   //Endpoint API
-  static String urlgetUserAuth = '$baseUrlapi/auth';
-  static String urlUserID = '$baseUrlapi/Users';
-  static String urlLogin = '$baseUrlapi/auth/Login';
+  static String urlUserID = '$baseUrlapi/Authmobile/Userid';
+  static String urlRegister = '$baseUrlapi/Authmobile/Register';
+  static String urlLogin = '$baseUrlapi/Authmobile/Login';
+  static String urlTraceCreate = '$baseUrlapi/Authmobile/Tracelogin';
+  static String urlTraceUpdate = '$baseUrlapi/Authmobile/Tracelogin/Update';
+  static String urlLogout = '$baseUrlapi/Authmobile/Logout';
+  static String urlResetPassword = '$baseUrlapi/Authmobile/Resetpassword';
+  static String urlmasterListJabatan = '$baseUrlapi/Profile/Jabatan';
+  static String urlupdateProfile = '$baseUrlapi/Profile/Update';
 
   ///App
   static String version = "1.0.0";
@@ -17,6 +21,10 @@ class AppConfig {
   static String imgLogin = "assets/images/login_1.png";
   static String imgRegister = "assets/images/register.png";
   static String imgChangePassword = "assets/images/forgot_password.png";
-  static String imgEmptyData = "assets/images/not_found.png";
+  static String imgEmptyDataNull = "assets/images/not_found.png";
   static String imgLogOut = "assets/images/log_out.png";
+
+  //Dio Time Out
+  static int timeOut = 10;
+  static int receivetimeOut = 10;
 }

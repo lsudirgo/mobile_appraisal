@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_appraisal/data/datasources/auth/auth_local_datasource.dart';
 import 'package:mobile_appraisal/presentation/dashboard/pages/notification_page.dart';
 import 'package:skeletons/skeletons.dart';
 
@@ -16,8 +17,12 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   bool isLoading = true;
+  bool isLoadingProfile = true;
+  String? _namemain = '';
+  String? _unitkerja = '';
+  String? _gendermain = '';
 
-  playLoading() async {
+  void playLoading() {
     setState(() {
       isLoading = true;
     });
@@ -27,6 +32,23 @@ class _DashboardPageState extends State<DashboardPage> {
         isLoading = false;
       });
     });
+  }
+
+  void playLoadingProfile() async {
+    setState(() {
+      isLoadingProfile = true;
+    });
+
+    final authData = await AuthLocalDatasource().getAuthData();
+    final data = authData?.result?.detailData;
+    if (data != null) {
+      setState(() {
+        _namemain = data.name;
+        _unitkerja = data.fou;
+        _gendermain = data.gender;
+        isLoadingProfile = false;
+      });
+    }
   }
 
   final itemStatus = [
@@ -40,17 +62,22 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     playLoading();
+    playLoadingProfile();
     super.initState();
   }
 
   @override
   void dispose() {
     playLoading();
+    playLoadingProfile();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    String imagePathMain = _gendermain == 'Laki - laki'
+        ? Assets.images.iconsProfileMan.path
+        : Assets.images.iconsProfileGirl.path;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -82,51 +109,60 @@ class _DashboardPageState extends State<DashboardPage> {
                             Expanded(
                               child: Column(
                                 children: [
-                                  Row(children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: isLoading
-                                          ? const SkeletonAvatar(
-                                              style: SkeletonAvatarStyle(
-                                                  width: 50,
-                                                  height: 50,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              100))),
-                                            )
-                                          : Image.asset(
-                                              Assets
-                                                  .images.iconsProfileMan.path,
-                                              width: 50,
-                                              height: 50,
-                                            ),
-                                    ),
-                                    const SpaceWidth(5),
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 50,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.5,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.transparent,
-                                      ),
-                                      child: isLoading
-                                          ? const SkeletonLine(
-                                              style: SkeletonLineStyle(
-                                                height: 20,
-                                              ),
-                                            )
-                                          : const Text(
-                                              "Ling Sudirgo Rahardian Putra",
-                                              style: TextStyle(
-                                                fontSize: AppSizeFont.md,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                    )
-                                  ]),
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 10),
+                                            child: isLoadingProfile
+                                                ? const SkeletonAvatar(
+                                                    style: SkeletonAvatarStyle(
+                                                        width: 50,
+                                                        height: 50,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    100))),
+                                                  )
+                                                : Image.asset(
+                                                    imagePathMain,
+                                                    width: 50,
+                                                    height: 50,
+                                                  ),
+                                          ),
+                                        ),
+                                        const SpaceWidth(5),
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: 50,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.5,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.transparent,
+                                          ),
+                                          child: isLoadingProfile
+                                              ? const SkeletonLine(
+                                                  style: SkeletonLineStyle(
+                                                    height: 20,
+                                                  ),
+                                                )
+                                              : Text(
+                                                  _namemain!,
+                                                  style: const TextStyle(
+                                                    fontSize: AppSizeFont.xl,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                        )
+                                      ]),
                                 ],
                               ),
                             ),
@@ -155,7 +191,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           ],
                         ),
                       ),
-                      isLoading
+                      isLoadingProfile
                           ? const Center(
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -172,21 +208,21 @@ class _DashboardPageState extends State<DashboardPage> {
                                 ),
                               ),
                             )
-                          : const Center(
+                          : Center(
                               child: Padding(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.home_work_rounded,
                                       size: AppSizeFont.xxl,
                                       color: AppColors.light,
                                     ),
-                                    SpaceWidth(5),
+                                    const SpaceWidth(5),
                                     Text(
-                                      "AFO Padang Sidempuan",
-                                      style: TextStyle(
+                                      _unitkerja!,
+                                      style: const TextStyle(
                                         fontSize: AppSizeFont.lg,
                                         color: AppColors.white,
                                       ),
@@ -249,9 +285,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                     padding: const EdgeInsets.only(left: 16),
                                     child: Row(
                                       children: [
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
+                                        const SpaceWidth(5),
                                         isLoading
                                             ? const SkeletonLine(
                                                 style: SkeletonLineStyle(
@@ -388,8 +422,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                                                           .size
                                                                           .width /
                                                                       3,
-                                                                  child:
-                                                                      Expanded(
+                                                                  child: Center(
                                                                     child:
                                                                         Column(
                                                                       mainAxisAlignment:
@@ -487,8 +520,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               Card(
                                 shadowColor: AppColors.primary,
                                 child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height / 8,
+                                  height: 100,
                                   width:
                                       MediaQuery.of(context).size.width * 0.9,
                                   decoration: BoxDecoration(

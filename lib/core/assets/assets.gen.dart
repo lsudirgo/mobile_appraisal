@@ -60,6 +60,10 @@ class $AssetsImagesGen {
   AssetGenImage get logoBsiMenu =>
       const AssetGenImage('assets/images/LOGO_BSI_MENU.png');
 
+  /// File path: assets/images/bgmobile.png
+  AssetGenImage get bgmobile =>
+      const AssetGenImage('assets/images/bgmobile.png');
+
   /// File path: assets/images/forgot_password.png
   AssetGenImage get forgotPassword =>
       const AssetGenImage('assets/images/forgot_password.png');
@@ -99,6 +103,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
         logoBsiMenu,
+        bgmobile,
         forgotPassword,
         iconsProfileGirl,
         iconsProfileMan,
@@ -120,11 +125,16 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size = null});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
 
   final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,

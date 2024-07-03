@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 import 'spaces.dart';
@@ -5,6 +6,7 @@ import 'spaces.dart';
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
+  final String? errorText;
   final Function(String value)? onChanged;
   final bool obscureText;
   final TextInputType? keyboardType;
@@ -12,11 +14,13 @@ class CustomTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool readOnly;
+  final FocusNode? focusNode;
 
   const CustomTextField({
     super.key,
     required this.controller,
     required this.label,
+    this.errorText,
     this.onChanged,
     this.obscureText = false,
     this.keyboardType,
@@ -24,6 +28,7 @@ class CustomTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.readOnly = false,
+    this.focusNode,
   });
 
   @override
@@ -50,6 +55,7 @@ class CustomTextField extends StatelessWidget {
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
+            errorText: errorText,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.0),
               borderSide: const BorderSide(color: Colors.grey),
@@ -60,6 +66,7 @@ class CustomTextField extends StatelessWidget {
             ),
             hintText: label,
           ),
+          focusNode: focusNode,
         ),
       ],
     );

@@ -50,7 +50,7 @@ class _NotificationPageState extends State<NotificationPage> {
               color: AppColors.primary,
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 25, left: 15, right: 15),
+              padding: const EdgeInsets.only(top: 40, left: 15, right: 15),
               child: Column(
                 children: [
                   Row(
@@ -61,14 +61,14 @@ class _NotificationPageState extends State<NotificationPage> {
                         child: const Icon(
                           Icons.arrow_circle_left,
                           size: 40.0,
-                          color: AppColors.light,
+                          color: AppColors.white,
                           opticalSize: 200,
                         ),
                       ),
                       const Text(
                         "Pesan",
                         style: TextStyle(
-                          color: AppColors.light,
+                          color: AppColors.white,
                           fontSize: AppSizeFont.lg,
                         ),
                       ),
