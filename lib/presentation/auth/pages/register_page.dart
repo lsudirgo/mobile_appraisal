@@ -111,12 +111,6 @@ class _RegisterPageState extends State<RegisterPage>
     });
   }
 
-  // void _onFocusChange() {
-  //   if (userIdController.text.isNotEmpty) {
-  //     _getuserBloc.add(GetuserEvent.getuser(userIdController.text));
-  //   }
-  // }
-
   @override
   void initState() {
     userIdController = TextEditingController();
@@ -132,6 +126,8 @@ class _RegisterPageState extends State<RegisterPage>
     passwordController.dispose();
     confirmPasswordController.dispose();
     _focusNodeNewPassword1.dispose();
+    _getuserBloc.close();
+    _registeruserBloc.close();
     super.dispose();
   }
 

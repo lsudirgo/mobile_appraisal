@@ -5,22 +5,25 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_appraisal/data/datasources/auth/auth_user_remote_datasource.dart';
 import 'package:mobile_appraisal/presentation/auth/bloc/resetpassword/resetpassword_bloc.dart';
 import 'package:mobile_appraisal/presentation/auth/pages/login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/core.dart';
 
-class ForgotPasswordPage extends StatefulWidget {
-  const ForgotPasswordPage({super.key});
+class ProfileForgotPasswordPage extends StatefulWidget {
+  final String useridLogin;
+  const ProfileForgotPasswordPage({super.key, required this.useridLogin});
 
   @override
-  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
+  State<ProfileForgotPasswordPage> createState() =>
+      _ProfileForgotPasswordPageState();
 }
 
-class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
-  late final TextEditingController emailChangeController;
-  late final TextEditingController passwordChangeController1;
-  late final TextEditingController passwordChangeController2;
-  bool isShowPasswordChange1 = false;
-  bool isShowPasswordChange2 = false;
+class _ProfileForgotPasswordPageState extends State<ProfileForgotPasswordPage> {
+  late final TextEditingController _emailChangeController;
+  late final TextEditingController _passwordChangeController1;
+  late final TextEditingController _passwordChangeController2;
+  bool _isShowPasswordChange1 = false;
+  bool _isShowPasswordChange2 = false;
 
   bool _showPasswordCriteria = false;
   double _sizeContainerCreteria = 34.0;
@@ -34,14 +37,17 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   final ResetpasswordBloc _resetpasswordBloc =
       ResetpasswordBloc(AuthUserRemoteDatasource());
-  void _onClickGantiPass() {
-    if (emailChangeController.text.isNotEmpty &&
-        passwordChangeController1.text.isNotEmpty &&
-        passwordChangeController2.text.isNotEmpty) {
+  void _onClickGantiPass() async {
+    if (_emailChangeController.text.isNotEmpty &&
+        _passwordChangeController1.text.isNotEmpty &&
+        _passwordChangeController2.text.isNotEmpty) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('auth_data');
+
       _resetpasswordBloc.add(ResetpasswordEvent.resetpassword(
-          userid: emailChangeController.text,
-          password: passwordChangeController1.text,
-          confirmasipassword: passwordChangeController2.text));
+          userid: _emailChangeController.text,
+          password: _passwordChangeController1.text,
+          confirmasipassword: _passwordChangeController2.text));
     }
   }
 
@@ -58,16 +64,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   void _checkPasswordStrength() {
     setState(() {
-      passwordChangeController1.text.contains(RegExp(r'[A-Z]'))
+      _passwordChangeController1.text.contains(RegExp(r'[A-Z]'))
           ? _hasPasswordUpper = true
           : _hasPasswordUpper = false;
-      passwordChangeController1.text.contains(RegExp(r'[0-9]'))
+      _passwordChangeController1.text.contains(RegExp(r'[0-9]'))
           ? _hasPasswordNumber = true
           : _hasPasswordNumber = false;
-      passwordChangeController1.text.contains(RegExp(r'[@\$!%*?&]'))
+      _passwordChangeController1.text.contains(RegExp(r'[@\$!%*?&]'))
           ? _hasPasswordSpecialChar = true
           : _hasPasswordSpecialChar = false;
-      passwordChangeController1.text.length >= 8
+      _passwordChangeController1.text.length >= 8
           ? _isLengthValid = true
           : _isLengthValid = false;
 
@@ -78,12 +84,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   void _enabledBtnGantiPass() {
     setState(() {
-      emailChangeController.text.isNotEmpty &&
+      _emailChangeController.text.isNotEmpty &&
               _isLengthValid &&
               _hasPasswordUpper &&
               _hasPasswordSpecialChar &&
               _hasPasswordNumber &&
-              passwordChangeController1.text == passwordChangeController2.text
+              _passwordChangeController1.text == _passwordChangeController2.text
           ? _btnGantiPass = false
           : _btnGantiPass = true;
     });
@@ -91,7 +97,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   void _validateGantiPasswords() {
     setState(() {
-      if (passwordChangeController1.text != passwordChangeController2.text) {
+      if (_passwordChangeController1.text != _passwordChangeController2.text) {
         _passwordError = 'Confirmation Password do not match';
       } else {
         _passwordError = null;
@@ -102,17 +108,17 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   void initState() {
-    emailChangeController = TextEditingController();
-    passwordChangeController1 = TextEditingController();
-    passwordChangeController2 = TextEditingController();
+    _emailChangeController = TextEditingController(text: widget.useridLogin);
+    _passwordChangeController1 = TextEditingController();
+    _passwordChangeController2 = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    emailChangeController.dispose();
-    passwordChangeController1.dispose();
-    passwordChangeController2.dispose();
+    _emailChangeController.dispose();
+    _passwordChangeController1.dispose();
+    _passwordChangeController2.dispose();
     _resetpasswordBloc.close();
     super.dispose();
   }
@@ -178,9 +184,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     child: Column(
                       children: [
                         CustomTextField(
-                          controller: emailChangeController,
-                          label: 'UserID / Email Address',
+                          controller: _emailChangeController,
+                          label: '',
                           showLabel: false,
+                          readOnly: true,
                           prefixIcon: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SvgPicture.asset(
@@ -417,10 +424,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         ),
                         const SpaceHeight(10),
                         CustomTextField(
-                          controller: passwordChangeController1,
+                          controller: _passwordChangeController1,
                           label: 'New Password',
                           showLabel: false,
-                          obscureText: !isShowPasswordChange1,
+                          obscureText: !_isShowPasswordChange1,
                           onChanged: (value) => _checkPasswordStrength(),
                           prefixIcon: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -432,26 +439,27 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           ),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              isShowPasswordChange1
+                              _isShowPasswordChange1
                                   ? Icons.visibility_off
                                   : Icons.visibility,
                               color: AppColors.grey,
                             ),
                             onPressed: () {
                               setState(() {
-                                isShowPasswordChange1 = !isShowPasswordChange1;
+                                _isShowPasswordChange1 =
+                                    !_isShowPasswordChange1;
                               });
                             },
                           ),
                         ),
                         const SpaceHeight(10),
                         CustomTextField(
-                          controller: passwordChangeController2,
+                          controller: _passwordChangeController2,
                           label: 'Confirmation Password',
                           showLabel: false,
-                          obscureText: !isShowPasswordChange2,
+                          obscureText: !_isShowPasswordChange2,
                           onChanged: (value) => _validateGantiPasswords(),
-                          errorText: passwordChangeController1.text.isNotEmpty
+                          errorText: _passwordChangeController1.text.isNotEmpty
                               ? _passwordError
                               : null,
                           prefixIcon: Padding(
@@ -464,14 +472,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           ),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              isShowPasswordChange2
+                              _isShowPasswordChange2
                                   ? Icons.visibility_off
                                   : Icons.visibility,
                               color: AppColors.grey,
                             ),
                             onPressed: () {
                               setState(() {
-                                isShowPasswordChange2 = !isShowPasswordChange2;
+                                _isShowPasswordChange2 =
+                                    !_isShowPasswordChange2;
                               });
                             },
                           ),
@@ -489,14 +498,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         listener: (context, state) {
                           state.maybeMap(
                             orElse: () {},
-                            success: (value) {
+                            success: (value) async {
                               final snackBar = SnackBar(
                                 elevation: 0,
                                 behavior: SnackBarBehavior.floating,
                                 backgroundColor: Colors.transparent,
                                 content: AwesomeSnackbarContent(
                                   title: 'Informasi',
-                                  message: value.result,
+                                  message: 'Ganti Password Berhasil',
                                   contentType: ContentType.success,
                                 ),
                               );

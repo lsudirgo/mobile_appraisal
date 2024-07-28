@@ -1,29 +1,21 @@
 import "dart:convert";
 import "package:dartz/dartz.dart";
 import "package:dio/dio.dart";
-import "package:mobile_appraisal/core/config.dart";
+import "package:mobile_appraisal/core/core.dart";
 import "package:mobile_appraisal/core/extensions/dio_exception_handle.dart";
-import "package:mobile_appraisal/core/extensions/error_message_ext.dart";
 import "package:mobile_appraisal/data/datasources/auth/auth_local_datasource.dart";
 import "package:mobile_appraisal/data/models/response/auth/auth_trace_login_response_model.dart";
+import "../../../core/singleton_dio.dart";
 import "../../models/response/auth/auth_login_response_model.dart";
 import "../../models/response/auth/auth_trace_login_update_response_model.dart";
 import "../../models/response/auth/auth_user_response_model.dart";
 import "../../models/response/auth/register_user_response_model.dart";
 
-final Dio dio = Dio(
-  BaseOptions(
-    connectTimeout: Duration(
-        seconds: AppConfig.timeOut), // waktu untuk menghubungkan ke server
-    receiveTimeout: Duration(
-        seconds:
-            AppConfig.receivetimeOut), // waktu untuk menerima data dari server
-  ),
-);
+final dio = DioClient().dio;
 
 class AuthUserRemoteDatasource {
   Future<Either<String, AuthUserResponseModel>> findUser(String userid) async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: AppConfig.delay));
     try {
       final url = "${AppConfig.urlUserID}/$userid";
 
@@ -59,7 +51,7 @@ class AuthUserRemoteDatasource {
 
   Future<Either<String, RegisteruserModel>> registerUser(
       String userid, String newpassword, String confirmpassword) async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: AppConfig.delay));
     try {
       final url = AppConfig.urlRegister;
 
@@ -101,7 +93,7 @@ class AuthUserRemoteDatasource {
 
   Future<Either<String, AuthLoginModel>> authLogin(
       String userid, String password) async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: AppConfig.delay));
     try {
       final url = AppConfig.urlLogin;
 
@@ -272,7 +264,7 @@ class AuthUserRemoteDatasource {
 
   Future<Either<String, String>> resetpassword(
       String userid, String password, String confirmasipassword) async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: AppConfig.delay));
     try {
       final url = AppConfig.urlResetPassword;
 

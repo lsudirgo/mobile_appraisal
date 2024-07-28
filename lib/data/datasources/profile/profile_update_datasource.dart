@@ -3,30 +3,23 @@ import 'package:dio/dio.dart';
 import 'package:mobile_appraisal/core/config.dart';
 import 'package:mobile_appraisal/core/extensions/dio_exception_handle.dart';
 import 'package:mobile_appraisal/core/extensions/error_message_ext.dart';
+import 'package:mobile_appraisal/core/singleton_dio.dart';
 import 'package:mobile_appraisal/data/datasources/auth/auth_local_datasource.dart';
 import 'package:mobile_appraisal/data/models/request/profile/profile_update_request_model.dart';
 import 'package:mobile_appraisal/data/models/response/profile/profile_update_response_model.dart';
 
-final Dio dio = Dio(
-  BaseOptions(
-    connectTimeout: Duration(
-        seconds: AppConfig.timeOut), // waktu untuk menghubungkan ke server
-    receiveTimeout: Duration(
-        seconds:
-            AppConfig.receivetimeOut), // waktu untuk menerima data dari server
-  ),
-);
+final clientdio = DioClient().dio;
 
 class ProfileUpdateRemoteDatasource {
   Future<Either<String, UpdateProfile>> postUpdateProfile(
       ProfileUpdate profileUpdate) async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: AppConfig.delay));
     try {
       final authData = await AuthLocalDatasource().getAuthData();
 
       final url = AppConfig.urlupdateProfile;
 
-      final response = await Dio().post(
+      final response = await clientdio.post(
         url,
         options: Options(
           headers: {

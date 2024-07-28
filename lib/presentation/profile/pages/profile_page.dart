@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_appraisal/data/datasources/auth/auth_local_datasource.dart';
 import 'package:mobile_appraisal/presentation/auth/pages/login_page.dart';
 import 'package:mobile_appraisal/presentation/profile/bloc/logout/logout_bloc.dart';
+import 'package:mobile_appraisal/presentation/profile/pages/profile_changepass_page.dart';
 import 'package:mobile_appraisal/presentation/profile/pages/profile_update_page.dart';
 import 'package:skeletons/skeletons.dart';
 
@@ -25,12 +26,14 @@ class _ProfilePageState extends State<ProfilePage> {
   String? _bagian = '';
   String? _nip = '';
   String? _jabatan = '';
+  String? _userid = '';
 
   void playLoadingProfile() async {
     setState(() {
       isLoadingprofile = true;
     });
     final authData = await AuthLocalDatasource().getAuthData();
+
     final data = authData?.result?.detailData;
     if (data != null) {
       setState(() {
@@ -41,6 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
         _bagian = data.bagian;
         _nip = data.nip;
         _jabatan = data.jabatan;
+        _userid = data.userid;
         isLoadingprofile = false;
       });
     }
@@ -170,13 +174,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
                                       if (updatedProfileData != null) {
                                         setState(() {
-                                          _name = updatedProfileData['name'];
                                           _gender =
                                               updatedProfileData['gender'];
                                           _level = updatedProfileData['level'];
                                           _bagian =
                                               updatedProfileData['bagian'];
-                                          _nip = updatedProfileData['nip'];
+                                          _jabatan =
+                                              updatedProfileData['jabatan'];
                                         });
                                       }
                                     },
@@ -376,7 +380,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   const Spacer(),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProfileForgotPasswordPage(
+                                            useridLogin: _userid.toString(),
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     child: const Icon(
                                       Icons.keyboard_arrow_right_outlined,
                                       color: AppColors.grey,

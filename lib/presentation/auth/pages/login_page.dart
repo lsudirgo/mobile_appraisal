@@ -54,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
     passwordController.dispose();
     _focusNodeemailController.dispose();
     _focusNodepasswordController.dispose();
+    _loginuserBloc.close();
     super.dispose();
   }
 

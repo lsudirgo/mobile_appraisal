@@ -1,10 +1,11 @@
 class AppConfig {
-  static String baseUrlapi = "http://192.168.1.30:8000/Mobile";
+  static String baseUrlapi = "http://192.168.60.31:8000/Mobile";
 
   //Endpoint API
   static String urlUserID = '$baseUrlapi/Authmobile/Userid';
   static String urlRegister = '$baseUrlapi/Authmobile/Register';
   static String urlLogin = '$baseUrlapi/Authmobile/Login';
+  static String refreshToken = '$baseUrlapi/Authmobile/Refreshtoken';
   static String urlTraceCreate = '$baseUrlapi/Authmobile/Tracelogin';
   static String urlTraceUpdate = '$baseUrlapi/Authmobile/Tracelogin/Update';
   static String urlLogout = '$baseUrlapi/Authmobile/Logout';
@@ -27,4 +28,7 @@ class AppConfig {
   //Dio Time Out
   static int timeOut = 10;
   static int receivetimeOut = 10;
+
+  //delayed development
+  static int delay = 1;
 }
