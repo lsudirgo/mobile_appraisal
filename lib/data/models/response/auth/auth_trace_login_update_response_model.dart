@@ -1,9 +1,11 @@
 import 'dart:convert';
 
-UpdateTraceLoginModel updateTraceLoginModelFromMap(String str) =>
-    UpdateTraceLoginModel.fromMap(json.decode(str));
+// Fungsi untuk mengkonversi dari JSON string ke model
+UpdateTraceLoginModel updateTraceLoginModelFromJson(String str) =>
+    UpdateTraceLoginModel.fromJson(json.decode(str));
 
-String updateTraceLoginModelToMap(UpdateTraceLoginModel data) =>
+// Fungsi untuk mengkonversi dari model ke JSON string
+String updateTraceLoginModelToJson(UpdateTraceLoginModel data) =>
     json.encode(data.toMap());
 
 class UpdateTraceLoginModel {
@@ -17,20 +19,20 @@ class UpdateTraceLoginModel {
     required this.result,
   });
 
-  factory UpdateTraceLoginModel.fromMap(Map<String, dynamic> json) =>
+  // Factory method untuk membuat instance dari JSON map
+  factory UpdateTraceLoginModel.fromJson(Map<String, dynamic> json) =>
       UpdateTraceLoginModel(
         statusCode: json["statusCode"],
         message: json["message"],
-        result: Result.fromMap(json["result"]),
+        result: Result.fromJson(json["result"]),
       );
 
+  // Mengkonversi instance ke JSON map
   Map<String, dynamic> toMap() => {
         "statusCode": statusCode,
         "message": message,
         "result": result.toMap(),
       };
-
-  static fromJson(String body) {}
 }
 
 class Result {
@@ -50,7 +52,8 @@ class Result {
     required this.lastLogin,
   });
 
-  factory Result.fromMap(Map<String, dynamic> json) => Result(
+  // Factory method untuk membuat instance dari JSON map
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
         userId: json["userID"],
         namaDevice: json["namaDevice"],
         physicalDevice: json["physicalDevice"],
@@ -59,6 +62,7 @@ class Result {
         lastLogin: DateTime.parse(json["lastLogin"]),
       );
 
+  // Mengkonversi instance ke JSON map
   Map<String, dynamic> toMap() => {
         "userID": userId,
         "namaDevice": namaDevice,

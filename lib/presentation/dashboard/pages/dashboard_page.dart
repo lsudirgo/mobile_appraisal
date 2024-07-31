@@ -40,9 +40,7 @@ class _DashboardPageState extends State<DashboardPage> {
     });
 
     final authData = await AuthLocalDatasource().getAuthData();
-    print(authData?.result);
     final data = authData?.result?.detailData;
-    print(data);
     if (data != null) {
       setState(() {
         _namemain = data.name;

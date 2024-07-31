@@ -4,9 +4,9 @@ import 'package:mobile_appraisal/core/core.dart';
 import 'package:mobile_appraisal/core/extensions/dio_exception_handle.dart';
 import 'package:mobile_appraisal/data/models/response/master/list_jabatan_response_model.dart';
 
-import '../../../core/singleton_dio.dart';
+import '../dio/singleton_dio.dart';
 
-final dio = DioClient().dio;
+final dioClient = DioClient().dio;
 
 class ListMasterRemoteDatasource {
   Future<Either<String, ListJabatan>> getListMasterJabatan(
@@ -14,7 +14,7 @@ class ListMasterRemoteDatasource {
     try {
       final url = '${AppConfig.urlmasterListJabatan}?page=$page&limit=$limit';
 
-      final response = await Dio().get(
+      final response = await dioClient().get(
         url,
         options: Options(
           headers: {

@@ -97,8 +97,15 @@ class $AssetsImagesGen {
   AssetGenImage get register =>
       const AssetGenImage('assets/images/register.png');
 
+  /// File path: assets/images/session_expired.png
+  AssetGenImage get sessionExpired =>
+      const AssetGenImage('assets/images/session_expired.png');
+
   /// File path: assets/images/start.png
   AssetGenImage get start => const AssetGenImage('assets/images/start.png');
+
+  /// File path: assets/images/warning.jpg
+  AssetGenImage get warning => const AssetGenImage('assets/images/warning.jpg');
 
   /// List of all assets
   List<AssetGenImage> get values => [
@@ -113,7 +120,9 @@ class $AssetsImagesGen {
         noImage,
         notFound,
         register,
-        start
+        sessionExpired,
+        start,
+        warning
       ];
 }
 

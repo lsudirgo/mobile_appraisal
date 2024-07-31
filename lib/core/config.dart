@@ -1,5 +1,5 @@
 class AppConfig {
-  static String baseUrlapi = "http://192.168.60.31:8000/Mobile";
+  static String baseUrlapi = "http://192.168.1.15:8000/Mobile";
 
   //Endpoint API
   static String urlUserID = '$baseUrlapi/Authmobile/Userid';
@@ -8,10 +8,11 @@ class AppConfig {
   static String refreshToken = '$baseUrlapi/Authmobile/Refreshtoken';
   static String urlTraceCreate = '$baseUrlapi/Authmobile/Tracelogin';
   static String urlTraceUpdate = '$baseUrlapi/Authmobile/Tracelogin/Update';
-  static String urlLogout = '$baseUrlapi/Authmobile/Logout';
   static String urlResetPassword = '$baseUrlapi/Authmobile/Resetpassword';
   static String urlmasterListJabatan = '$baseUrlapi/Profile/Jabatan';
-  static String urlupdateProfile = '$baseUrlapi/Profile/Update';
+  //EndPoint API Authentication
+  static String urlupdateProfile = '/Profile/Update';
+  static String urlLogout = '/Authmobile/Logout';
 
   ///App
   static String version = "1.0.0";

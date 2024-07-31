@@ -1,10 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:mobile_appraisal/core/config.dart';
 import 'package:mobile_appraisal/core/extensions/dio_exception_handle.dart';
 import 'package:mobile_appraisal/core/extensions/error_message_ext.dart';
-import 'package:mobile_appraisal/core/singleton_dio.dart';
-import 'package:mobile_appraisal/data/datasources/auth/auth_local_datasource.dart';
+import 'package:mobile_appraisal/data/datasources/dio/singleton_dio.dart';
 import 'package:mobile_appraisal/data/models/request/profile/profile_update_request_model.dart';
 import 'package:mobile_appraisal/data/models/response/profile/profile_update_response_model.dart';
 
@@ -15,19 +13,10 @@ class ProfileUpdateRemoteDatasource {
       ProfileUpdate profileUpdate) async {
     await Future.delayed(Duration(seconds: AppConfig.delay));
     try {
-      final authData = await AuthLocalDatasource().getAuthData();
-
       final url = AppConfig.urlupdateProfile;
 
-      final response = await clientdio.post(
+      final response = await clientdio().post(
         url,
-        options: Options(
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Authorization": "Bearer ${authData?.result?.accessToken}"
-          },
-        ),
         data: profileUpdate.toJson(),
       );
 

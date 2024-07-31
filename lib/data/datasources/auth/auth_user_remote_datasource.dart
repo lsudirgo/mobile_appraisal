@@ -4,14 +4,24 @@ import "package:dio/dio.dart";
 import "package:mobile_appraisal/core/core.dart";
 import "package:mobile_appraisal/core/extensions/dio_exception_handle.dart";
 import "package:mobile_appraisal/data/datasources/auth/auth_local_datasource.dart";
+import "package:mobile_appraisal/data/datasources/profile/profile_update_datasource.dart";
 import "package:mobile_appraisal/data/models/response/auth/auth_trace_login_response_model.dart";
-import "../../../core/singleton_dio.dart";
+import "../dio/singleton_dio.dart";
 import "../../models/response/auth/auth_login_response_model.dart";
 import "../../models/response/auth/auth_trace_login_update_response_model.dart";
 import "../../models/response/auth/auth_user_response_model.dart";
 import "../../models/response/auth/register_user_response_model.dart";
 
-final dio = DioClient().dio;
+final dioClient = DioClient().dio;
+final dio = Dio(
+  BaseOptions(
+    connectTimeout: Duration(seconds: AppConfig.timeOut),
+    receiveTimeout: Duration(seconds: AppConfig.receivetimeOut),
+    validateStatus: (status) {
+      return status! < 500; // Validasi status yang diizinkan
+    },
+  ),
+);
 
 class AuthUserRemoteDatasource {
   Future<Either<String, AuthUserResponseModel>> findUser(String userid) async {
@@ -187,7 +197,7 @@ class AuthUserRemoteDatasource {
     try {
       final url = AppConfig.urlTraceUpdate;
 
-      final response = await dio.post(
+      final response = await dio.put(
         url,
         options: Options(headers: {
           "Content-Type": "application/json",
@@ -201,7 +211,7 @@ class AuthUserRemoteDatasource {
         }),
       );
 
-      final jsonData = jsonDecode(response.data);
+      final jsonData = response.data;
 
       if (jsonData['statusCode'] == 200) {
         // status code 201 = success
@@ -230,17 +240,10 @@ class AuthUserRemoteDatasource {
     // await Future.delayed(const Duration(seconds: 3));
 
     try {
-      final authData = await AuthLocalDatasource().getAuthData();
+      // final authData = await AuthLocalDatasource().getAuthData();
       final url = AppConfig.urlLogout;
 
-      final response = await dio.post(url,
-          options: Options(
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json",
-              "Authorization": "Bearer ${authData?.result?.accessToken}"
-            },
-          ));
+      final response = await clientdio().post(url);
 
       final jsonData = response.data;
       if (jsonData['statusCode'] == 200) {

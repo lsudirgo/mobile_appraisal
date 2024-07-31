@@ -10,7 +10,7 @@ import 'package:mobile_appraisal/presentation/auth/bloc/getuser/getuser_bloc.dar
 import 'package:mobile_appraisal/presentation/auth/bloc/loginuser/loginuser_bloc.dart';
 import 'package:mobile_appraisal/presentation/auth/bloc/registeruser/registeruser_bloc.dart';
 import 'package:mobile_appraisal/presentation/auth/bloc/resetpassword/resetpassword_bloc.dart';
-import 'package:mobile_appraisal/presentation/auth/pages/login_page.dart';
+import 'package:mobile_appraisal/presentation/auth/pages/login_exp_page.dart';
 import 'package:mobile_appraisal/presentation/master/bloc/listjabatan/listjabatan_bloc.dart';
 import 'package:mobile_appraisal/presentation/profile/bloc/logout/logout_bloc.dart';
 import 'package:mobile_appraisal/presentation/profile/bloc/updateprofile/updateprofile_bloc.dart';
@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const SplashPage(),
         routes: {
-          '/login': (context) => const LoginPage(),
+          '/loginexpired': (context) => const LoginExpPage(),
         },
       ),
     );
