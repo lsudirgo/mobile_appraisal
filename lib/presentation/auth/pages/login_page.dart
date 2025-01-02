@@ -214,7 +214,9 @@ class _LoginPageState extends State<LoginPage> {
                                 AuthLocalDatasource()
                                     .saveAuthData(successState);
 
-                                context.pushReplacement(const MainPage());
+                                context.pushReplacement(const MainPage(
+                                  initialIndex: 0,
+                                ));
                               },
                             );
                           },

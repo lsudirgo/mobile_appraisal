@@ -72,6 +72,9 @@ class _$ListjabatanEventCopyWithImpl<$Res, $Val extends ListjabatanEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of ListjabatanEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -88,6 +91,9 @@ class __$$StartedImplCopyWithImpl<$Res>
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of ListjabatanEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -193,6 +199,8 @@ class __$$ListJabatanImplCopyWithImpl<$Res>
       _$ListJabatanImpl _value, $Res Function(_$ListJabatanImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ListjabatanEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -247,7 +255,9 @@ class _$ListJabatanImpl implements _ListJabatan {
   @override
   int get hashCode => Object.hash(runtimeType, page, limit, q);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ListjabatanEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ListJabatanImplCopyWith<_$ListJabatanImpl> get copyWith =>
@@ -323,7 +333,10 @@ abstract class _ListJabatan implements ListjabatanEvent {
   int get page;
   int get limit;
   String? get q;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ListjabatanEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ListJabatanImplCopyWith<_$ListJabatanImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -398,6 +411,9 @@ class _$ListjabatanStateCopyWithImpl<$Res, $Val extends ListjabatanState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of ListjabatanState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -414,6 +430,9 @@ class __$$ListJabatanInitialImplCopyWithImpl<$Res>
   __$$ListJabatanInitialImplCopyWithImpl(_$ListJabatanInitialImpl _value,
       $Res Function(_$ListJabatanInitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of ListjabatanState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -528,6 +547,9 @@ class __$$ListJabatanLoadingImplCopyWithImpl<$Res>
   __$$ListJabatanLoadingImplCopyWithImpl(_$ListJabatanLoadingImpl _value,
       $Res Function(_$ListJabatanLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of ListjabatanState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -645,6 +667,8 @@ class __$$ListJabatanSuccessImplCopyWithImpl<$Res>
       $Res Function(_$ListJabatanSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ListjabatanState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -683,7 +707,9 @@ class _$ListJabatanSuccessImpl implements _ListJabatanSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, result);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ListjabatanState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ListJabatanSuccessImplCopyWith<_$ListJabatanSuccessImpl> get copyWith =>
@@ -770,7 +796,10 @@ abstract class _ListJabatanSuccess implements ListjabatanState {
       _$ListJabatanSuccessImpl;
 
   ListJabatan get result;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ListjabatanState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ListJabatanSuccessImplCopyWith<_$ListJabatanSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -792,6 +821,8 @@ class __$$ListJabatanErrorImplCopyWithImpl<$Res>
       $Res Function(_$ListJabatanErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ListjabatanState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -830,7 +861,9 @@ class _$ListJabatanErrorImpl implements _ListJabatanError {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ListjabatanState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ListJabatanErrorImplCopyWith<_$ListJabatanErrorImpl> get copyWith =>
@@ -916,7 +949,10 @@ abstract class _ListJabatanError implements ListjabatanState {
   const factory _ListJabatanError(final String error) = _$ListJabatanErrorImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ListjabatanState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ListJabatanErrorImplCopyWith<_$ListJabatanErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

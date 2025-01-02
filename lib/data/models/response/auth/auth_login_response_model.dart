@@ -84,6 +84,7 @@ class DetailData {
   final String level;
   final String otorisator;
   final String unitkerja;
+  final String konsolidasi;
   final String bagiansingkat;
   final String bagian;
   final String nip;
@@ -97,6 +98,7 @@ class DetailData {
     required this.level,
     required this.otorisator,
     required this.unitkerja,
+    required this.konsolidasi,
     required this.bagiansingkat,
     required this.bagian,
     required this.nip,
@@ -111,6 +113,7 @@ class DetailData {
         level: json["level"] ?? '',
         otorisator: json["otorisator"],
         unitkerja: json["unitkerja"],
+        konsolidasi: json["konsolidasi"] ?? '',
         bagiansingkat: json["bagiansingkat"],
         bagian: json["bagian"],
         nip: json["nip"],
@@ -125,6 +128,7 @@ class DetailData {
         "level": level,
         "otorisator": otorisator,
         "unitkerja": unitkerja,
+        "konsolidasi": konsolidasi,
         "bagiansingkat": bagiansingkat,
         "bagian": bagian,
         "nip": nip,

@@ -487,7 +487,7 @@ class _ProfileForgotPasswordPageState extends State<ProfileForgotPasswordPage> {
                         state.maybeMap(
                           orElse: () {},
                           success: (value) async {
-                            final snackBar = SnackBar(
+                            const snackBar = SnackBar(
                               elevation: 0,
                               behavior: SnackBarBehavior.floating,
                               backgroundColor: Colors.transparent,

@@ -95,14 +95,13 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
         TextEditingController(text: widget.profileData['name']);
     _selectedGender = widget.profileData['gender'];
     _selectedLevelOption = widget.profileData['level'] ?? 'Staff';
-
-    Future.microtask(
-      () {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
         context
             .read<ListjabatanBloc>()
             .add(const ListjabatanEvent.listJabatan(1, 100, ''));
-      },
-    );
+      }
+    });
     super.initState();
   }
 

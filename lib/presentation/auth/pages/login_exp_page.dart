@@ -130,7 +130,9 @@ class _LoginExpPageState extends State<LoginExpPage> {
 
                                   //delete storage user
 
-                                  context.pushReplacement(const MainPage());
+                                  context.pushReplacement(const MainPage(
+                                    initialIndex: 0,
+                                  ));
                                   SharedPreferences prefs =
                                       await SharedPreferences.getInstance();
                                   prefs.remove('user');

@@ -6,6 +6,9 @@ import 'package:mobile_appraisal/data/datasources/auth/auth_local_datasource.dar
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TokenInterceptor extends Interceptor {
+  bool _isRefreshing = false;
+  final List<Function> _queuedRequests = [];
+
   final dio = Dio(
     BaseOptions(
       connectTimeout: Duration(seconds: AppConfig.timeOut),
@@ -32,6 +35,18 @@ class TokenInterceptor extends Interceptor {
       options.headers['Accept'] = "application/json";
       options.headers["Authorization"] = "Bearer $token";
     } else {
+      if (_isRefreshing) {
+        // Jika sedang refresh token, antrekan permintaan
+        _queuedRequests.add(() async {
+          options.headers["Authorization"] =
+              "Bearer ${await _getLatestToken()}";
+          handler.next(options);
+        });
+        return;
+      }
+
+      _isRefreshing = true;
+
       try {
         String? refreshToken = await getRefreshToken();
         Response response = await dio.post(
@@ -49,6 +64,9 @@ class TokenInterceptor extends Interceptor {
           Map<String, dynamic>? newToken = response.data['result'];
           if (newToken != null) {
             await saveToken(newToken);
+            options.headers["Authorization"] =
+                "Bearer ${newToken['accessToken']}";
+            _processQueuedRequests();
           }
         } else {
           await saveUserid(useridData);
@@ -59,6 +77,8 @@ class TokenInterceptor extends Interceptor {
         await saveUserid(useridData);
         AuthLocalDatasource().deleteAuthData();
         redirectToLogin();
+      } finally {
+        _isRefreshing = false;
       }
     }
     return handler.next(options);
@@ -107,5 +127,17 @@ class TokenInterceptor extends Interceptor {
   Future<void> saveUserid(String userid) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('user', userid);
+  }
+
+  void _processQueuedRequests() async {
+    for (var request in _queuedRequests) {
+      await request();
+    }
+    _queuedRequests.clear();
+  }
+
+  Future<String> _getLatestToken() async {
+    final authData = await AuthLocalDatasource().getAuthData();
+    return authData?.result?.accessToken ?? '';
   }
 }

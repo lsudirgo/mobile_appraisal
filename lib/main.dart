@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_appraisal/core/navigation_service.dart';
 import 'package:mobile_appraisal/data/datasources/auth/auth_user_remote_datasource.dart';
+import 'package:mobile_appraisal/data/datasources/dashboard/dashboard_datasource.dart';
+import 'package:mobile_appraisal/data/datasources/job/job_list_datasource.dart';
 import 'package:mobile_appraisal/data/datasources/master/list_master_datasource.dart';
 import 'package:mobile_appraisal/data/datasources/profile/profile_update_datasource.dart';
 import 'package:mobile_appraisal/presentation/auth/bloc/getuser/getuser_bloc.dart';
@@ -11,7 +13,13 @@ import 'package:mobile_appraisal/presentation/auth/bloc/loginuser/loginuser_bloc
 import 'package:mobile_appraisal/presentation/auth/bloc/registeruser/registeruser_bloc.dart';
 import 'package:mobile_appraisal/presentation/auth/bloc/resetpassword/resetpassword_bloc.dart';
 import 'package:mobile_appraisal/presentation/auth/pages/login_exp_page.dart';
+import 'package:mobile_appraisal/presentation/dashboard/bloc/dashboard_done/dashboard_done_bloc.dart';
+import 'package:mobile_appraisal/presentation/dashboard/bloc/dashboard_pending/dashboard_pending_bloc.dart';
+import 'package:mobile_appraisal/presentation/dashboard/bloc/dashboard_progress/dashboard_progress_bloc.dart';
+import 'package:mobile_appraisal/presentation/job/bloc/disposisi_create/disposisi_create_bloc.dart';
+import 'package:mobile_appraisal/presentation/job/bloc/job_list_progres/job_lis_progres_bloc.dart';
 import 'package:mobile_appraisal/presentation/master/bloc/listjabatan/listjabatan_bloc.dart';
+import 'package:mobile_appraisal/presentation/master/bloc/listuserdispo/list_user_disposisi_bloc.dart';
 import 'package:mobile_appraisal/presentation/profile/bloc/logout/logout_bloc.dart';
 import 'package:mobile_appraisal/presentation/profile/bloc/updateprofile/updateprofile_bloc.dart';
 
@@ -57,7 +65,28 @@ class MyApp extends StatelessWidget {
         BlocProvider<UpdateprofileBloc>(
           create: (context) =>
               UpdateprofileBloc(ProfileUpdateRemoteDatasource()),
-        )
+        ),
+        BlocProvider<DashboardDoneBloc>(
+          create: (context) => DashboardDoneBloc(DashboardRemoteDatasource()),
+        ),
+        BlocProvider<DashboardPendingBloc>(
+          create: (context) =>
+              DashboardPendingBloc(DashboardRemoteDatasource()),
+        ),
+        BlocProvider<DashboardProgressBloc>(
+          create: (context) =>
+              DashboardProgressBloc(DashboardRemoteDatasource()),
+        ),
+        BlocProvider<JobLisProgresBloc>(
+          create: (context) => JobLisProgresBloc(JobListRemoteDatasource()),
+        ),
+        BlocProvider<ListUserDisposisiBloc>(
+          create: (context) =>
+              ListUserDisposisiBloc(ListMasterRemoteDatasource()),
+        ),
+        BlocProvider<DisposisiCreateBloc>(
+          create: (context) => DisposisiCreateBloc(JobListRemoteDatasource()),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -66,7 +95,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
           dividerTheme:
-              DividerThemeData(color: AppColors.white.withOpacity(0.5)),
+              DividerThemeData(color: AppColors.white.withValues(alpha: 0.5)),
           dialogTheme: const DialogTheme(elevation: 0),
           textTheme: GoogleFonts.kumbhSansTextTheme(
             Theme.of(context).textTheme,

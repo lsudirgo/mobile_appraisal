@@ -31,8 +31,11 @@ class _SplashPageState extends State<SplashPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                isLoggedIn ? const MainPage() : const LoginPage(),
+            builder: (context) => isLoggedIn
+                ? const MainPage(
+                    initialIndex: 0,
+                  )
+                : const LoginPage(),
           ),
         );
       }

@@ -1,5 +1,5 @@
 class AppConfig {
-  static String baseUrlapi = "http://192.168.1.15:8000/Mobile";
+  static String baseUrlapi = "http://192.168.210.31:8000/Mobile";
 
   //Endpoint API
   static String urlUserID = '$baseUrlapi/Authmobile/Userid';
@@ -10,12 +10,20 @@ class AppConfig {
   static String urlTraceUpdate = '$baseUrlapi/Authmobile/Tracelogin/Update';
   static String urlResetPassword = '$baseUrlapi/Authmobile/Resetpassword';
   static String urlmasterListJabatan = '$baseUrlapi/Profile/Jabatan';
+  static String urlmasterListDisposisi =
+      '$baseUrlapi/Userreviewer/Userreviewer';
+  static String urlDisposisiOrder = '$baseUrlapi/Disposisi/Create';
+
   //EndPoint API Authentication
   static String urlupdateProfile = '/Profile/Update';
   static String urlLogout = '/Authmobile/Logout';
+  static String urlDashboardDone = '/Dashboard/Done';
+  static String urlDashboardPending = '/Dashboard/Pending';
+  static String urlDashboardProgress = '/Dashboard/Progress';
+  static String urlJobList = '/Order/Progress';
 
   ///App
-  static String version = "1.0.0";
+  static String version = "0.0.1";
   static String nameApp = "Mobile Appraisal";
   static int launcTimeApp = 2;
 
@@ -32,4 +40,5 @@ class AppConfig {
 
   //delayed development
   static int delay = 1;
+  static int debouce = 1000;
 }

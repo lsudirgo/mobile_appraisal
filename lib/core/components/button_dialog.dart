@@ -48,7 +48,7 @@ Future<void> showBottomDialog({
                     color: Colors.grey[300], // Warna garis
                   ),
                 ),
-                const SpaceHeight(10),
+                const SpaceHeight(8),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),

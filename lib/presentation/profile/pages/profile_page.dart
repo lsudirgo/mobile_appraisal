@@ -27,6 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String? _nip = '';
   String? _jabatan = '';
   String? _userid = '';
+  String? _app = '';
 
   void playLoadingProfile() async {
     setState(() {
@@ -45,6 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
         _nip = data.nip;
         _jabatan = data.jabatan;
         _userid = data.userid;
+        _app = data.otorisator;
         isLoadingprofile = false;
       });
     }
@@ -115,10 +117,25 @@ class _ProfilePageState extends State<ProfilePage> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(100))),
                                         )
-                                      : Image.asset(
-                                          imagePath,
-                                          width: 50,
-                                          height: 50,
+                                      : Stack(
+                                          children: [
+                                            Image.asset(
+                                              imagePath,
+                                              width: 50,
+                                              height: 50,
+                                            ),
+                                            Positioned(
+                                              top: 0,
+                                              right: 0,
+                                              child: Icon(
+                                                Icons.check_circle,
+                                                color: _app == 'Y'
+                                                    ? AppColors.secondary
+                                                    : AppColors.background,
+                                                size: 20,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                   const SpaceWidth(10),
                                   isLoadingprofile

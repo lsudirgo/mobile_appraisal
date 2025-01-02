@@ -1,31 +1,43 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+
 import 'package:mobile_appraisal/presentation/dashboard/pages/dashboard_page.dart';
+import 'package:mobile_appraisal/presentation/job/page/mainjob_page.dart';
 import 'package:mobile_appraisal/presentation/profile/pages/profile_page.dart';
 
 import '../../../core/core.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final int initialIndex;
+  const MainPage({
+    super.key,
+    required this.initialIndex,
+  });
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
+  late int _selectedIndex = 0;
 
   final _widgets = [
     const DashboardPage(),
-    const Center(child: Text('Index 1: Business')),
+    const MainJobPage(),
     const Center(child: Text('Index 2: School')),
     const ProfilePage(),
   ];
 
-  updateIndex(int newIndex) {
+  _updateIndex(int newIndex) {
     setState(() {
       _selectedIndex = newIndex;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex; // Set indeks awal
   }
 
   @override
@@ -37,7 +49,7 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
-        onTap: (index) => updateIndex(index) ?? 0,
+        onTap: (index) => _updateIndex(index) ?? 0,
         color: AppColors.primary,
         animationCurve: Curves.linear,
         height: 50,

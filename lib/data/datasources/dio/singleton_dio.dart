@@ -17,6 +17,9 @@ class DioClient {
         connectTimeout: Duration(seconds: AppConfig.timeOut),
         receiveTimeout: Duration(seconds: AppConfig.receivetimeOut),
         baseUrl: AppConfig.baseUrlapi,
+        validateStatus: (status) {
+          return status! < 500; // Validasi status yang diizinkan
+        },
       ),
     );
 

@@ -21,6 +21,21 @@ class $AssetsIconsGen {
   /// File path: assets/icons/calendar.svg
   String get calendar => 'assets/icons/calendar.svg';
 
+  /// File path: assets/icons/check.svg
+  String get check => 'assets/icons/check.svg';
+
+  /// File path: assets/icons/checkmark.svg
+  String get checkmark => 'assets/icons/checkmark.svg';
+
+  /// File path: assets/icons/clock.svg
+  String get clock => 'assets/icons/clock.svg';
+
+  /// File path: assets/icons/connect.svg
+  String get connect => 'assets/icons/connect.svg';
+
+  /// File path: assets/icons/done.svg
+  String get done => 'assets/icons/done.svg';
+
   /// File path: assets/icons/email.svg
   String get email => 'assets/icons/email.svg';
 
@@ -36,20 +51,33 @@ class $AssetsIconsGen {
   /// File path: assets/icons/password.svg
   String get password => 'assets/icons/password.svg';
 
+  /// File path: assets/icons/refresh.svg
+  String get refresh => 'assets/icons/refresh.svg';
+
   /// File path: assets/icons/reverse.svg
   String get reverse => 'assets/icons/reverse.svg';
+
+  /// File path: assets/icons/support.svg
+  String get support => 'assets/icons/support.svg';
 
   /// List of all assets
   List<String> get values => [
         attendance,
         back,
         calendar,
+        check,
+        checkmark,
+        clock,
+        connect,
+        done,
         email,
         image,
         location,
         notificationRounded,
         password,
-        reverse
+        refresh,
+        reverse,
+        support
       ];
 }
 
@@ -60,9 +88,18 @@ class $AssetsImagesGen {
   AssetGenImage get logoBsiMenu =>
       const AssetGenImage('assets/images/LOGO_BSI_MENU.png');
 
+  /// File path: assets/images/bgCard.png
+  AssetGenImage get bgCard => const AssetGenImage('assets/images/bgCard.png');
+
   /// File path: assets/images/bgmobile.png
   AssetGenImage get bgmobile =>
       const AssetGenImage('assets/images/bgmobile.png');
+
+  /// File path: assets/images/bloCK.png
+  AssetGenImage get bloCK => const AssetGenImage('assets/images/bloCK.png');
+
+  /// File path: assets/images/clock.png
+  AssetGenImage get clock => const AssetGenImage('assets/images/clock.png');
 
   /// File path: assets/images/forgot_password.png
   AssetGenImage get forgotPassword =>
@@ -110,7 +147,10 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
         logoBsiMenu,
+        bgCard,
         bgmobile,
+        bloCK,
+        clock,
         forgotPassword,
         iconsProfileGirl,
         iconsProfileMan,
@@ -163,7 +203,7 @@ class AssetGenImage {
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
-    bool gaplessPlayback = false,
+    bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
     FilterQuality filterQuality = FilterQuality.low,
